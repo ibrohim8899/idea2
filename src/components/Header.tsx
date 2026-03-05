@@ -37,11 +37,6 @@ function Header({
     <header className="border-b border-border py-4">
       <div className="flex items-center justify-between gap-4">
         <button type="button" onClick={() => onNavigate('top')} className="flex items-center gap-3">
-          <span className="text-primary">
-            <svg viewBox="0 0 24 24" className="h-5 w-5 fill-current" aria-hidden="true">
-              <path d="M2 12h2v4H2zm4-4h2v12H6zm4 6h2v4h-2zm4-8h2v12h-2zm4 4h2v4h-2z" />
-            </svg>
-          </span>
           <span className="text-xl font-bold tracking-tight">{title}</span>
         </button>
 
