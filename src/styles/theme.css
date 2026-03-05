@@ -1,0 +1,55 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-bg: #f6f6f8;
+  --color-text: #0f172a;
+  --color-primary: #135bec;
+  --color-border: #d9deec;
+  --color-muted: #475569;
+  --color-success: #166534;
+  --color-danger: #b91c1c;
+  --color-card: #ffffff;
+  --color-input: #f1f5f9;
+  --color-panel: #eef2ff;
+  --color-frame: #e2e8f0;
+}
+
+.dark {
+  --color-bg: #101622;
+  --color-text: #f8fafc;
+  --color-primary: #1d63ff;
+  --color-border: #1f2d49;
+  --color-muted: #a7b0c2;
+  --color-success: #4ade80;
+  --color-danger: #f87171;
+  --color-card: #0f1a30;
+  --color-input: #1f2c45;
+  --color-panel: #14203a;
+  --color-frame: #1d3055;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
