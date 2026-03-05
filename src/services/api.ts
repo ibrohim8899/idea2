@@ -3,6 +3,10 @@ export interface SubmitIdeaPayload {
   lastName: string
   email?: string
   phone: string
+  role: string
+  workplace?: string
+  school?: string
+  region: string
   idea: string
   language: 'uz' | 'ru' | 'en'
   userAgent: string
@@ -62,6 +66,10 @@ export const submitIdea = async (payload: SubmitIdeaPayload): Promise<SubmitIdea
     `<b>Last name:</b> ${escapeHtml(payload.lastName)}`,
     `<b>Email:</b> ${escapeHtml(payload.email ?? '-')}`,
     `<b>Phone:</b> ${escapeHtml(payload.phone)}`,
+    `<b>Role:</b> ${escapeHtml(payload.role || '-')}`,
+    `<b>Workplace:</b> ${escapeHtml(payload.workplace ?? '-')}`,
+    `<b>School:</b> ${escapeHtml(payload.school ?? '-')}`,
+    `<b>Region:</b> ${escapeHtml(payload.region || '-')}`,
     `<b>Language:</b> ${escapeHtml(payload.language)}`,
     `<b>User agent:</b> ${escapeHtml(payload.userAgent)}`,
     '',

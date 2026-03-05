@@ -50,6 +50,17 @@ export interface TranslationModel {
     emailPlaceholder: string
     phoneLabel: string
     phonePlaceholder: string
+    roleLabel: string
+    rolePlaceholder: string
+    roleWorker: string
+    roleStudent: string
+    workplaceLabel: string
+    workplacePlaceholder: string
+    schoolLabel: string
+    schoolPlaceholder: string
+    regionLabel: string
+    regionPlaceholder: string
+    regions: string[]
     ideaLabel: string
     ideaPlaceholder: string
     submit: string
@@ -67,6 +78,10 @@ export interface TranslationModel {
       emailInvalid: string
       phoneRequired: string
       phoneInvalid: string
+      roleRequired: string
+      workplaceRequired: string
+      schoolRequired: string
+      regionRequired: string
       ideaRequired: string
       ideaTooShort: string
     }
@@ -141,6 +156,32 @@ export const translations: Record<Language, TranslationModel> = {
       emailPlaceholder: 'john@example.com',
       phoneLabel: 'Telefon raqam',
       phonePlaceholder: '+998 90 123 45 67',
+      roleLabel: 'Siz kimsiz?',
+      rolePlaceholder: 'Tanlang',
+      roleWorker: 'Ishchi',
+      roleStudent: "O'quvchi",
+      workplaceLabel: 'Ish joyi',
+      workplacePlaceholder: 'Kompaniya nomi va lavozim',
+      schoolLabel: 'Maktab / OTM',
+      schoolPlaceholder: 'Maktab yoki universitet nomi',
+      regionLabel: 'Viloyat',
+      regionPlaceholder: 'Viloyatni tanlang',
+      regions: [
+        'Toshkent shahri',
+        'Toshkent viloyati',
+        'Andijon',
+        'Buxoro',
+        "Farg'ona",
+        'Jizzax',
+        'Xorazm',
+        'Namangan',
+        'Navoiy',
+        'Qashqadaryo',
+        'Samarqand',
+        'Surxondaryo',
+        'Sirdaryo',
+        "Qoraqalpog'iston",
+      ],
       ideaLabel: 'G`oya',
       ideaPlaceholder: 'G`oyangizni yozing...',
       submit: "G'oya qoldirish",
@@ -158,6 +199,10 @@ export const translations: Record<Language, TranslationModel> = {
         emailInvalid: 'Email formati noto`g`ri.',
         phoneRequired: 'Telefon raqam majburiy.',
         phoneInvalid: 'Telefon raqam +998 formatida bo`lishi kerak.',
+        roleRequired: 'Kimligingizni tanlang.',
+        workplaceRequired: 'Ish joyini kiriting.',
+        schoolRequired: "Maktab yoki OTM nomini kiriting.",
+        regionRequired: 'Viloyatni tanlang.',
         ideaRequired: 'G`oya matni majburiy.',
         ideaTooShort: 'G`oya matni kamida 20 ta belgidan iborat bo`lishi kerak.',
       },
@@ -230,6 +275,32 @@ export const translations: Record<Language, TranslationModel> = {
       emailPlaceholder: 'john@example.com',
       phoneLabel: 'Телефон',
       phonePlaceholder: '+998 90 123 45 67',
+      roleLabel: 'Кто вы?',
+      rolePlaceholder: 'Выберите',
+      roleWorker: 'Работник',
+      roleStudent: 'Студент/ученик',
+      workplaceLabel: 'Место работы',
+      workplacePlaceholder: 'Компания и должность',
+      schoolLabel: 'Учебное заведение',
+      schoolPlaceholder: 'Школа или университет',
+      regionLabel: 'Регион',
+      regionPlaceholder: 'Выберите регион',
+      regions: [
+        'Ташкент (город)',
+        'Ташкентская область',
+        'Андижанская область',
+        'Бухарская область',
+        'Ферганская область',
+        'Джизакская область',
+        'Хорезмская область',
+        'Наманганская область',
+        'Навоийская область',
+        'Кашкадарьинская область',
+        'Самаркандская область',
+        'Сурхандарьинская область',
+        'Сырдарьинская область',
+        'Республика Каракалпакстан',
+      ],
       ideaLabel: 'Идея',
       ideaPlaceholder: 'Опишите вашу идею...',
       submit: 'Оставить идею',
@@ -247,6 +318,10 @@ export const translations: Record<Language, TranslationModel> = {
         emailInvalid: 'Неверный формат email.',
         phoneRequired: 'Введите номер телефона.',
         phoneInvalid: 'Номер должен быть в формате +998.',
+        roleRequired: 'Выберите, кто вы.',
+        workplaceRequired: 'Укажите место работы.',
+        schoolRequired: 'Укажите учебное заведение.',
+        regionRequired: 'Выберите регион.',
         ideaRequired: 'Введите текст идеи.',
         ideaTooShort: 'Идея должна содержать минимум 20 символов.',
       },
@@ -319,6 +394,32 @@ export const translations: Record<Language, TranslationModel> = {
       emailPlaceholder: 'john@example.com',
       phoneLabel: 'Phone Number',
       phonePlaceholder: '+998 90 123 45 67',
+      roleLabel: 'You are',
+      rolePlaceholder: 'Select',
+      roleWorker: 'Worker',
+      roleStudent: 'Student',
+      workplaceLabel: 'Workplace',
+      workplacePlaceholder: 'Company and role',
+      schoolLabel: 'School / University',
+      schoolPlaceholder: 'School or university name',
+      regionLabel: 'Region',
+      regionPlaceholder: 'Select a region',
+      regions: [
+        'Tashkent City',
+        'Tashkent Region',
+        'Andijan',
+        'Bukhara',
+        'Fergana',
+        'Jizzakh',
+        'Khorezm',
+        'Namangan',
+        'Navoi',
+        'Kashkadarya',
+        'Samarkand',
+        'Surkhandarya',
+        'Syrdarya',
+        'Karakalpakstan',
+      ],
       ideaLabel: 'Idea',
       ideaPlaceholder: 'Tell us about your idea...',
       submit: 'Leave Idea',
@@ -336,6 +437,10 @@ export const translations: Record<Language, TranslationModel> = {
         emailInvalid: 'Invalid email format.',
         phoneRequired: 'Phone number is required.',
         phoneInvalid: 'Phone must be a valid Uzbekistan number.',
+        roleRequired: 'Select your role.',
+        workplaceRequired: 'Enter your workplace.',
+        schoolRequired: 'Enter your school or university.',
+        regionRequired: 'Select a region.',
         ideaRequired: 'Idea text is required.',
         ideaTooShort: 'Idea must contain at least 20 characters.',
       },

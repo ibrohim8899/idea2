@@ -16,6 +16,10 @@ interface FormValues {
   lastName: string
   email: string
   phone: string
+  role: string
+  workplace: string
+  school: string
+  region: string
   idea: string
   website: string
 }
@@ -31,6 +35,10 @@ const emptyForm: FormValues = {
   lastName: '',
   email: '',
   phone: '',
+  role: '',
+  workplace: '',
+  school: '',
+  region: '',
   idea: '',
   website: '',
 }
@@ -98,6 +106,22 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
       validationErrors.phone = copy.validation.phoneInvalid
     }
 
+    if (!formValues.role.trim()) {
+      validationErrors.role = copy.validation.roleRequired
+    }
+
+    if (formValues.role === 'worker' && !formValues.workplace.trim()) {
+      validationErrors.workplace = copy.validation.workplaceRequired
+    }
+
+    if (formValues.role === 'student' && !formValues.school.trim()) {
+      validationErrors.school = copy.validation.schoolRequired
+    }
+
+    if (!formValues.region.trim()) {
+      validationErrors.region = copy.validation.regionRequired
+    }
+
     if (!formValues.idea.trim()) {
       validationErrors.idea = copy.validation.ideaRequired
     } else if (formValues.idea.trim().length < MIN_IDEA_LENGTH) {
@@ -140,11 +164,19 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
     setStatus('loading')
     setStatusMessage('')
     try {
+      const role = formValues.role
+      const workplace = role === 'worker' ? formValues.workplace.trim() : undefined
+      const school = role === 'student' ? formValues.school.trim() : undefined
+
       await submitIdea({
         firstName: formValues.firstName.trim(),
         lastName: formValues.lastName.trim(),
         email: formValues.email.trim() || undefined,
         phone: normalizedPhone,
+        role,
+        workplace,
+        school,
+        region: formValues.region.trim(),
         idea: formValues.idea.trim(),
         language,
         website: formValues.website.trim(),
@@ -215,6 +247,63 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
               }}
             />
           </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            <div className="space-y-2 text-left">
+              <label htmlFor="role" className="text-sm font-semibold text-text">
+                {copy.roleLabel}
+              </label>
+              <select
+                id="role"
+                value={formValues.role}
+                onChange={(event) => updateField('role', event.target.value)}
+                className="w-full rounded-lg border border-border bg-[var(--color-input)] px-4 py-2.5 text-sm text-text outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+              >
+                <option value="">{copy.rolePlaceholder}</option>
+                <option value="worker">{copy.roleWorker}</option>
+                <option value="student">{copy.roleStudent}</option>
+              </select>
+            </div>
+
+            <div className="space-y-2 text-left">
+              <label htmlFor="region" className="text-sm font-semibold text-text">
+                {copy.regionLabel}
+              </label>
+              <select
+                id="region"
+                value={formValues.region}
+                onChange={(event) => updateField('region', event.target.value)}
+                className="w-full rounded-lg border border-border bg-[var(--color-input)] px-4 py-2.5 text-sm text-text outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
+              >
+                <option value="">{copy.regionPlaceholder}</option>
+                {copy.regions.map((region) => (
+                  <option key={region} value={region}>
+                    {region}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {formValues.role === 'worker' && (
+            <Field
+              id="workplace"
+              label={copy.workplaceLabel}
+              value={formValues.workplace}
+              placeholder={copy.workplacePlaceholder}
+              onChange={(value) => updateField('workplace', value)}
+            />
+          )}
+
+          {formValues.role === 'student' && (
+            <Field
+              id="school"
+              label={copy.schoolLabel}
+              value={formValues.school}
+              placeholder={copy.schoolPlaceholder}
+              onChange={(value) => updateField('school', value)}
+            />
+          )}
 
           <div className="space-y-2">
             <label htmlFor="idea" className="text-sm font-semibold text-text">
