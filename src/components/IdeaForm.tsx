@@ -40,6 +40,7 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
   const [status, setStatus] = useState<FormStatus>('idle')
   const [statusMessage, setStatusMessage] = useState('')
   const [toastVisible, setToastVisible] = useState(false)
+  const [toastId, setToastId] = useState(0)
   const lastSubmitTime = useRef<number>(0)
   const toastTimer = useRef<number | null>(null)
 
@@ -71,7 +72,7 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
         window.clearTimeout(toastTimer.current)
       }
     }
-  }, [status, statusMessage])
+  }, [status, statusMessage, toastId])
 
   const validate = (): { errors: FieldErrors; normalizedPhone: string | null } => {
     const validationErrors: FieldErrors = {}
@@ -110,21 +111,28 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
     setFormValues((previous) => ({ ...previous, [field]: value }))
   }
 
+  const showToast = (nextStatus: FormStatus, message: string) => {
+    setStatus(nextStatus)
+    setStatusMessage(message)
+    setToastId((previous) => previous + 1)
+  }
+
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     const now = Date.now()
     if (now - lastSubmitTime.current < FRONTEND_RATE_LIMIT_MS) {
-      setStatus('error')
-      setStatusMessage(copy.rateLimited)
+      showToast('error', copy.rateLimited)
       return
     }
 
     const { errors: validationErrors, normalizedPhone } = validate()
     if (Object.keys(validationErrors).length > 0 || !normalizedPhone) {
-      const firstError = Object.values(validationErrors).find(Boolean)
-      setStatus('error')
-      setStatusMessage(firstError ?? copy.error)
+      const hasPhoneError = Boolean(validationErrors.phone)
+      const hasNonPhoneErrors = Object.entries(validationErrors).some(
+        ([key, value]) => key !== 'phone' && Boolean(value),
+      )
+      showToast('error', hasPhoneError && !hasNonPhoneErrors ? copy.toast.fillPhone : copy.toast.fillForm)
       return
     }
 
@@ -143,15 +151,13 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
         userAgent: window.navigator.userAgent,
       })
 
-      setStatus('success')
-      setStatusMessage(copy.success)
+      showToast('success', copy.success)
       setFormValues(emptyForm)
     } catch (error) {
-      setStatus('error')
       if (error instanceof ApiError && error.code === 'RATE_LIMITED') {
-        setStatusMessage(copy.rateLimited)
+        showToast('error', copy.rateLimited)
       } else {
-        setStatusMessage(copy.error)
+        showToast('error', copy.error)
       }
     }
   }

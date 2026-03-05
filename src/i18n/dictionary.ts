@@ -57,6 +57,10 @@ export interface TranslationModel {
     success: string
     error: string
     rateLimited: string
+    toast: {
+      fillForm: string
+      fillPhone: string
+    }
     validation: {
       firstNameRequired: string
       lastNameRequired: string
@@ -86,48 +90,48 @@ export const translations: Record<Language, TranslationModel> = {
       },
     },
     hero: {
-      title: 'Fikringiz bilan AI ni yaxshilang',
+      title: "G'oyangiz bor, investitsiya yo'qmi?",
       description:
-        "G'oyalar yuboring, xatolarni xabar qiling va hammaga aniqroq AI yaratishda yordam bering.",
-      primaryCta: 'G`oya yuborish',
-      secondaryCta: "Batafsil o'rganish",
+        "G'oyangizni qoldiring — biz ko'rib chiqamiz va keyingi qadamlar bo'yicha yordam beramiz.",
+      primaryCta: "G'oya qoldirish",
+      secondaryCta: 'Qanday ishlaymiz',
     },
     features: {
-      title: 'Imkoniyatlar',
+      title: 'Qanday yordam beramiz',
       items: [
         {
           id: 'ideas',
-          title: "G'oyalaringizni ulashing",
+          title: "G'oyangizni qoldiring",
           description:
-            "AI rivoji uchun o'z qarashlaringizni ulashing. Biz hamjamiyat fikrlarini doim inobatga olamiz.",
+            "G'oyangizni tushunamiz, bozor va qiymat taklifini qisqa tahlil qilamiz.",
         },
         {
           id: 'issues',
-          title: 'AI xatolarini bildiring',
+          title: "Yordam va yo'nalish",
           description:
-            "Xatolik yoki noto'g'ri javob topsangiz, yozib qoldiring. Aniqlikni birga yaxshilaymiz.",
+            "Siz bilan bog'lanib, g'oyani pishitish va taqdimotga tayyorlashda yordam beramiz.",
         },
         {
           id: 'training',
-          title: 'AI ni birga o`rgatamiz',
+          title: "Keyingi qadamlar",
           description:
-            'Javoblarga kontekst va batafsil fikr bildirib model sifatini oshirishga yordam bering.',
+            "MVP, taqdimot va kelishuvlar bo'yicha yo'naltiramiz.",
         },
       ],
     },
     community: {
-      title: 'Hamjamiyat ishonchi',
+      title: "G'oya egalari hamjamiyati",
       description:
-        'EchoAI kelajagini shakllantirayotgan minglab foydalanuvchilarga qo`shiling. Sizning ovozingiz muhim.',
+        "G'oya egalarga yordam beramiz. Loyihangiz eshitilishi kerak.",
       stats: [
-        { value: '10k+', label: 'Yuborilgan fikrlar' },
-        { value: '3k+', label: 'Faol foydalanuvchilar' },
-        { value: '500+', label: 'Platforma yaxshilanishlari' },
+        { value: '120+', label: "Ko'rib chiqilgan g'oyalar" },
+        { value: '40+', label: "Bog'langan loyihalar" },
+        { value: '15+', label: 'Hamkorlar' },
       ],
     },
     form: {
-      title: 'G`oya yuborish',
-      description: 'Quyidagi formani to`ldirib g`oyangizni yuboring.',
+      title: "G'oyangizni qoldiring",
+      description: "Quyidagi formani to'ldiring — biz g'oyangizni ko'rib chiqamiz va siz bilan bog'lanamiz.",
       firstNameLabel: 'Ism',
       firstNamePlaceholder: 'John',
       lastNameLabel: 'Familiya',
@@ -139,11 +143,15 @@ export const translations: Record<Language, TranslationModel> = {
       phonePlaceholder: '+998 90 123 45 67',
       ideaLabel: 'G`oya',
       ideaPlaceholder: 'G`oyangizni yozing...',
-      submit: 'G`oya yuborish',
+      submit: "G'oya qoldirish",
       submitting: 'Yuborilmoqda...',
-      success: 'Rahmat. G`oyangiz muvaffaqiyatli yuborildi.',
+      success: "Rahmat. G'oyangiz qabul qilindi, tez orada bog'lanamiz.",
       error: 'Xatolik yuz berdi. Iltimos, qayta urinib ko`ring.',
       rateLimited: 'Juda tez yuborildi. Bir necha soniyadan keyin qayta urinib ko`ring.',
+      toast: {
+        fillForm: "Formani to'ldiring.",
+        fillPhone: "Nomerni to'ldiring.",
+      },
       validation: {
         firstNameRequired: 'Ism kiritish majburiy.',
         lastNameRequired: 'Familiya kiritish majburiy.',
@@ -171,48 +179,48 @@ export const translations: Record<Language, TranslationModel> = {
       },
     },
     hero: {
-      title: 'Помогите улучшить AI вашим отзывом',
+      title: 'Есть идея, но нет инвестиций?',
       description:
-        'Отправляйте идеи, сообщайте об ошибках и помогайте нам обучать более точную AI модель для всех.',
-      primaryCta: 'Отправить идею',
-      secondaryCta: 'Узнать больше',
+        'Оставьте идею — мы рассмотрим её и поможем с дальнейшими шагами.',
+      primaryCta: 'Оставить идею',
+      secondaryCta: 'Как это работает',
     },
     features: {
-      title: 'Функции',
+      title: 'Как мы помогаем',
       items: [
         {
           id: 'ideas',
-          title: 'Делитесь идеями',
+          title: 'Оставьте идею',
           description:
-            'Поделитесь вашим видением будущего AI. Мы внимательно слушаем сообщество.',
+            'Мы изучаем вашу идею и делаем короткую оценку рынка и ценности.',
         },
         {
           id: 'issues',
-          title: 'Сообщайте о проблемах AI',
+          title: 'Поддержка и консультации',
           description:
-            'Нашли баг или галлюцинацию? Сообщите нам, чтобы мы исправили и повысили точность.',
+            'Связываемся с вами и помогаем доработать идею и подготовить презентацию.',
         },
         {
           id: 'training',
-          title: 'Помогайте обучать AI',
+          title: 'Дорожная карта',
           description:
-            'Добавляйте контекст и подробную обратную связь, чтобы модели улучшались быстрее.',
+            'Подскажем по MVP, презентации и следующим шагам, чтобы подготовиться к сделке.',
         },
       ],
     },
     community: {
-      title: 'Доверие сообщества',
+      title: 'Сообщество авторов идей',
       description:
-        'Присоединяйтесь к тысячам пользователей, которые формируют будущее EchoAI. Ваш голос важен.',
+        'Мы помогаем авторам идей. Ваш проект должен быть услышан.',
       stats: [
-        { value: '10k+', label: 'Отправленных отзывов' },
-        { value: '3k+', label: 'Активных пользователей' },
-        { value: '500+', label: 'Улучшений платформы' },
+        { value: '120+', label: 'Рассмотренных идей' },
+        { value: '40+', label: 'Сведенных проектов' },
+        { value: '15+', label: 'Партнеров' },
       ],
     },
     form: {
-      title: 'Отправить идею',
-      description: 'Заполните форму ниже, чтобы отправить вашу идею.',
+      title: 'Оставьте свою идею',
+      description: 'Заполните форму ниже — мы рассмотрим вашу идею и свяжемся с вами.',
       firstNameLabel: 'Имя',
       firstNamePlaceholder: 'John',
       lastNameLabel: 'Фамилия',
@@ -224,11 +232,15 @@ export const translations: Record<Language, TranslationModel> = {
       phonePlaceholder: '+998 90 123 45 67',
       ideaLabel: 'Идея',
       ideaPlaceholder: 'Опишите вашу идею...',
-      submit: 'Отправить идею',
+      submit: 'Оставить идею',
       submitting: 'Отправка...',
-      success: 'Спасибо. Ваша идея успешно отправлена.',
+      success: 'Спасибо. Мы получили вашу идею и скоро свяжемся с вами.',
       error: 'Что-то пошло не так. Пожалуйста, попробуйте снова.',
       rateLimited: 'Слишком частые отправки. Подождите несколько секунд.',
+      toast: {
+        fillForm: 'Заполните форму.',
+        fillPhone: 'Введите номер телефона.',
+      },
       validation: {
         firstNameRequired: 'Введите имя.',
         lastNameRequired: 'Введите фамилию.',
@@ -256,48 +268,48 @@ export const translations: Record<Language, TranslationModel> = {
       },
     },
     hero: {
-      title: 'Help Improve AI with Your Feedback',
+      title: 'Have an idea but no investment?',
       description:
-        'Submit ideas, report bugs, and help us train a better, more accurate AI model for everyone.',
-      primaryCta: 'Submit Idea',
-      secondaryCta: 'Learn More',
+        "Share your idea — we'll review it and help you with the next steps.",
+      primaryCta: 'Leave an Idea',
+      secondaryCta: 'How It Works',
     },
     features: {
-      title: 'Features',
+      title: 'How We Help',
       items: [
         {
           id: 'ideas',
-          title: 'Share Your Ideas',
+          title: 'Leave Your Idea',
           description:
-            'Share your vision to guide the future of AI development. We listen to our community.',
+            'We review your idea and provide a quick market and value assessment.',
         },
         {
           id: 'issues',
-          title: 'Report AI Issues',
+          title: 'Guidance and Support',
           description:
-            'Found a bug or hallucination? Let us know so we can fix it and improve accuracy.',
+            "We'll get in touch and help you refine the idea and prepare the pitch.",
         },
         {
           id: 'training',
-          title: 'Help Train AI',
+          title: 'Roadmap Support',
           description:
-            'Help our models improve by providing valuable context and detailed feedback on responses.',
+            'We guide you on MVP, pitch, and next steps to be ready for investment.',
         },
       ],
     },
     community: {
-      title: 'Community Trust',
+      title: 'Idea-Builder Community',
       description:
-        'Join thousands of users who are actively shaping the future of EchoAI. Your voice matters in building better technology.',
+        'We support idea owners. Your project deserves to be heard.',
       stats: [
-        { value: '10k+', label: 'Feedback Submitted' },
-        { value: '3k+', label: 'Active Users' },
-        { value: '500+', label: 'Platform Improvements' },
+        { value: '120+', label: 'Ideas Reviewed' },
+        { value: '40+', label: 'Projects Connected' },
+        { value: '15+', label: 'Partners' },
       ],
     },
     form: {
-      title: 'Submit Your Idea',
-      description: 'Fill out the form below to send your idea.',
+      title: 'Leave Your Idea',
+      description: 'Fill out the form below — we will review your idea and contact you.',
       firstNameLabel: 'First Name',
       firstNamePlaceholder: 'John',
       lastNameLabel: 'Last Name',
@@ -309,11 +321,15 @@ export const translations: Record<Language, TranslationModel> = {
       phonePlaceholder: '+998 90 123 45 67',
       ideaLabel: 'Idea',
       ideaPlaceholder: 'Tell us about your idea...',
-      submit: 'Submit Idea',
+      submit: 'Leave Idea',
       submitting: 'Submitting...',
-      success: 'Thank you. Your idea was submitted successfully.',
+      success: 'Thank you. We received your idea and will contact you soon.',
       error: 'Something went wrong. Please try again.',
       rateLimited: 'Too many quick submissions. Please wait a few seconds.',
+      toast: {
+        fillForm: 'Please fill out the form.',
+        fillPhone: 'Please enter your phone number.',
+      },
       validation: {
         firstNameRequired: 'First name is required.',
         lastNameRequired: 'Last name is required.',
