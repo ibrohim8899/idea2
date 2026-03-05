@@ -76,7 +76,7 @@ export interface TranslationModel {
 export const translations: Record<Language, TranslationModel> = {
   uz: {
     header: {
-      title: 'EchoAI',
+      title: 'G`oya yuborish',
       darkMode: 'Dark mode',
       lightMode: 'Light mode',
       nav: {
@@ -161,7 +161,7 @@ export const translations: Record<Language, TranslationModel> = {
   },
   ru: {
     header: {
-      title: 'EchoAI',
+      title: 'Отправить идею',
       darkMode: 'Dark mode',
       lightMode: 'Light mode',
       nav: {
@@ -246,7 +246,7 @@ export const translations: Record<Language, TranslationModel> = {
   },
   en: {
     header: {
-      title: 'EchoAI',
+      title: 'Submit Idea',
       darkMode: 'Dark mode',
       lightMode: 'Light mode',
       nav: {
