@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type FormEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FormEvent } from 'react'
 import { type Language, type TranslationModel } from '../i18n/dictionary'
 import { ApiError, submitIdea } from '../services/api'
 import { formatUzPhoneInput, isValidEmail, normalizeUzPhone } from '../utils/validators'
@@ -37,10 +37,11 @@ const emptyForm: FormValues = {
 
 function IdeaForm({ id, language, copy }: IdeaFormProps) {
   const [formValues, setFormValues] = useState<FormValues>(emptyForm)
-  const [errors, setErrors] = useState<FieldErrors>({})
   const [status, setStatus] = useState<FormStatus>('idle')
   const [statusMessage, setStatusMessage] = useState('')
+  const [toastVisible, setToastVisible] = useState(false)
   const lastSubmitTime = useRef<number>(0)
+  const toastTimer = useRef<number | null>(null)
 
   const isSubmitting = status === 'loading'
 
@@ -48,6 +49,29 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
     () => (isSubmitting ? copy.submitting : copy.submit),
     [isSubmitting, copy],
   )
+
+  useEffect(() => {
+    if (status !== 'success' && status !== 'error') {
+      setToastVisible(false)
+      return undefined
+    }
+
+    setToastVisible(true)
+
+    if (toastTimer.current) {
+      window.clearTimeout(toastTimer.current)
+    }
+
+    toastTimer.current = window.setTimeout(() => {
+      setToastVisible(false)
+    }, 5000)
+
+    return () => {
+      if (toastTimer.current) {
+        window.clearTimeout(toastTimer.current)
+      }
+    }
+  }, [status, statusMessage])
 
   const validate = (): { errors: FieldErrors; normalizedPhone: string | null } => {
     const validationErrors: FieldErrors = {}
@@ -84,9 +108,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
 
   const updateField = (field: keyof FormValues, value: string) => {
     setFormValues((previous) => ({ ...previous, [field]: value }))
-    if (field !== 'website') {
-      setErrors((previous) => ({ ...previous, [field]: undefined }))
-    }
   }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
@@ -101,17 +122,15 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
 
     const { errors: validationErrors, normalizedPhone } = validate()
     if (Object.keys(validationErrors).length > 0 || !normalizedPhone) {
-      setErrors(validationErrors)
+      const firstError = Object.values(validationErrors).find(Boolean)
       setStatus('error')
-      setStatusMessage(copy.error)
+      setStatusMessage(firstError ?? copy.error)
       return
     }
 
     lastSubmitTime.current = now
     setStatus('loading')
     setStatusMessage('')
-    setErrors({})
-
     try {
       await submitIdea({
         firstName: formValues.firstName.trim(),
@@ -158,7 +177,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
               value={formValues.firstName}
               placeholder={copy.firstNamePlaceholder}
               onChange={(value) => updateField('firstName', value)}
-              error={errors.firstName}
             />
             <Field
               id="lastName"
@@ -166,7 +184,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
               value={formValues.lastName}
               placeholder={copy.lastNamePlaceholder}
               onChange={(value) => updateField('lastName', value)}
-              error={errors.lastName}
             />
           </div>
 
@@ -178,7 +195,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
               value={formValues.email}
               placeholder={copy.emailPlaceholder}
               onChange={(value) => updateField('email', value)}
-              error={errors.email}
             />
             <Field
               id="phone"
@@ -191,7 +207,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
                   updateField('phone', '+998')
                 }
               }}
-              error={errors.phone}
             />
           </div>
 
@@ -207,7 +222,6 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
               placeholder={copy.ideaPlaceholder}
               className="w-full resize-none rounded-lg border border-border bg-[var(--color-input)] px-4 py-3 text-sm text-text outline-none transition focus:border-primary focus:ring-1 focus:ring-primary"
             />
-            {errors.idea && <p className="text-sm text-danger">{errors.idea}</p>}
           </div>
 
           <div className="hidden" aria-hidden="true">
@@ -230,12 +244,22 @@ function IdeaForm({ id, language, copy }: IdeaFormProps) {
           >
             {submitButtonLabel}
           </button>
-
-          {(status === 'success' || status === 'error') && (
-            <p className={`rounded-lg border px-3 py-2 text-sm ${statusClassName}`}>{statusMessage}</p>
-          )}
         </form>
       </div>
+
+      {(status === 'success' || status === 'error') && statusMessage && (
+        <div
+          className={`fixed right-6 top-6 z-50 max-w-sm rounded-lg border px-4 py-3 text-sm shadow-lg transition-all duration-300 ease-out ${
+            toastVisible
+              ? 'translate-y-0 opacity-100'
+              : '-translate-y-2 opacity-0 pointer-events-none'
+          } ${statusClassName}`}
+          role="status"
+          aria-live="polite"
+        >
+          {statusMessage}
+        </div>
+      )}
     </section>
   )
 }
@@ -248,10 +272,9 @@ interface FieldProps {
   placeholder: string
   onChange: (value: string) => void
   onFocus?: () => void
-  error?: string
 }
 
-function Field({ id, label, type = 'text', value, placeholder, onChange, onFocus, error }: FieldProps) {
+function Field({ id, label, type = 'text', value, placeholder, onChange, onFocus }: FieldProps) {
   return (
     <div className="space-y-2 text-left">
       <label htmlFor={id} className="text-sm font-semibold text-text">
@@ -266,7 +289,6 @@ function Field({ id, label, type = 'text', value, placeholder, onChange, onFocus
         onFocus={onFocus}
         className="w-full rounded-lg border border-border bg-[var(--color-input)] px-4 py-2.5 text-sm text-text outline-none transition placeholder:text-muted focus:border-primary focus:ring-1 focus:ring-primary"
       />
-      {error && <p className="text-sm text-danger">{error}</p>}
     </div>
   )
 }
