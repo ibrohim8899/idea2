@@ -7,7 +7,7 @@ import HeroSection from './components/HeroSection'
 import IdeaForm from './components/IdeaForm'
 import { DEFAULT_LANGUAGE, isLanguage, translations, type Language } from './i18n/dictionary'
 
-const LANGUAGE_STORAGE_KEY = 'landing-language'
+const LANGUAGE_STORAGE_KEY = 'landing-language-v2'
 const THEME_STORAGE_KEY = 'landing-theme'
 
 type Theme = 'light' | 'dark'
@@ -47,6 +47,7 @@ function App() {
   }, [theme])
 
   useEffect(() => {
+    document.documentElement.lang = language
     window.localStorage.setItem(LANGUAGE_STORAGE_KEY, language)
   }, [language])
 

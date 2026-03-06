@@ -1,6 +1,6 @@
 ﻿export type Language = 'uz' | 'ru' | 'en'
 
-export const DEFAULT_LANGUAGE: Language = 'en'
+export const DEFAULT_LANGUAGE: Language = 'uz'
 
 export const isLanguage = (value: string | null): value is Language =>
   value === 'uz' || value === 'ru' || value === 'en'
